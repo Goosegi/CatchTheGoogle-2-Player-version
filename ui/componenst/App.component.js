@@ -6,6 +6,7 @@ import { ResultPanelComponent } from "./resultPanel/resultPanel.component.js";
 import { SettingComponent } from "./setting/settings.component.js";
 import { StartComponent } from "./Start/Start.component.js";
 import { WinComponent } from "./Win/Win.component.js";
+import { Notification } from "./notification/notification.component.js";
 
 export function AppComponent() {
     const localState = {prevGameStatus: null, cleanupFunctions: []}
@@ -40,7 +41,8 @@ async function render(element, localState) {
         case GAME_STATUSES.SETTINGS: {
             const settingComponent = await SettingComponent()
             const startComponent = await StartComponent()
-            mainComponent.append(startComponent.element);
+            const notification = await Notification()
+            mainComponent.append(notification, startComponent.element );
             element.append(
                 settingComponent.element,
                 mainComponent

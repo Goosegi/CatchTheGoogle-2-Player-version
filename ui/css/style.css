@@ -49,6 +49,33 @@ select {
     cursor: pointer;
 }
 
+.notification {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 36px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 300;
+    align-items: center;
+    border: 1px solid #4C5E50;
+    background-color: rgba(57, 61, 55, 0.40);
+    margin: 36px auto;
+    max-width: 600px;
+    min-width: 376px;
+    column-gap: 20px;
+}
+
+.notificationButton {
+    display: inline-flex;
+    width: fit-content;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 4px;
+    border-radius: 4px 4px;
+    background-color: #1fff2a65;
+}
+
 /* Toggle //======================================================================================================================================================== */
 
 
