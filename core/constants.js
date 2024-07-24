@@ -2,7 +2,8 @@ export const GAME_STATUSES = {
     SETTINGS: "settings",
     IN_PROGRESS: "in_progress",
     WIN: "win",
-    LOSE: "lose"
+    LOSE: "lose",
+    PAUSE: "pause",
 }
 
 export const EVENTS = {
@@ -20,4 +21,5 @@ export const MOVING_DIRECTIONS = {
     DOWN: 'down',
     LEFT: 'left',
     RIGHT: 'right',
+    SPACE: 'Space',
 }

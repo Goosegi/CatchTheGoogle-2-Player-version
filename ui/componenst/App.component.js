@@ -7,6 +7,7 @@ import { SettingComponent } from "./setting/settings.component.js";
 import { StartComponent } from "./Start/Start.component.js";
 import { WinComponent } from "./Win/Win.component.js";
 import { Notification } from "./notification/notification.component.js";
+import { PauseComponent } from "./Pause/Pause.component.js";
 
 export function AppComponent() {
     const localState = {prevGameStatus: null, cleanupFunctions: []}
@@ -42,7 +43,7 @@ async function render(element, localState) {
             const settingComponent = await SettingComponent()
             const startComponent = await StartComponent()
             const notification = await Notification()
-            mainComponent.append(notification, startComponent.element );
+            mainComponent.append(notification,startComponent.element );
             element.append(
                 settingComponent.element,
                 mainComponent
@@ -61,6 +62,17 @@ async function render(element, localState) {
                 mainComponent
             );
             break;
+        case GAME_STATUSES.PAUSE:
+            const pauseResultPanelComponent = await ResultPanelComponent()
+            const pauseGridComponent = await GridComponent()
+            const pauseComponent = await PauseComponent()
+            localState.cleanupFunctions.push(pauseResultPanelComponent.cleanup)
+            localState.cleanupFunctions.push(pauseGridComponent.cleanup)
+            mainComponent.append(pauseResultPanelComponent.element,pauseComponent, pauseGridComponent.element);
+            element.append(
+                mainComponent
+            );
+        break;
         case GAME_STATUSES.LOSE:
             const loseComponent = await LoseComponent()
             mainComponent.append(loseComponent.element);

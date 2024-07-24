@@ -1,4 +1,4 @@
-import { getGridSize, movePlayer } from '../../../core/state-manager.js';
+import { gamePause, getGridSize, movePlayer } from '../../../core/state-manager.js';
 import { CellComponent  } from './cell/Cell.component.js';
 import { MOVING_DIRECTIONS } from '../../../core/constants.js';
 
@@ -35,6 +35,10 @@ export function GridComponent() {
             case 'KeyD': 
             movePlayer(2, MOVING_DIRECTIONS.RIGHT); 
             break;
+
+            case 'Space':
+                gamePause();
+            break;
         }
     }
 
@@ -47,7 +51,7 @@ export function GridComponent() {
 
     return {
         element, cleanup: () => {
-            localState.cleanupFunctions.forEach(cf => cf())
+            localState.cleanupFunctions.forEach(cf => cf()),
             document.removeEventListener('keyup', keyupHandler)
         }
     };
@@ -58,7 +62,7 @@ async function render(element, localState) {
 
     localState.cleanupFunctions.forEach(cf => cf())
     localState.cleanupFunctions = []
-
+    console.log('Grid render')
     element.innerHTML = '';
     const gridSize = await getGridSize();
 

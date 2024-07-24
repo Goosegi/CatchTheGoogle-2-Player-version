@@ -104,11 +104,25 @@ export function timer() {
             _state.timer.minutes++;
             _state.timer.seconds = 0;
         }
-}, 1000)
+    }, 1000)
 }
 
 export function getTimeOfGame() {
-    return {..._state.timer}
+    return { ..._state.timer }
+}
+
+
+export async function gamePause() {
+    if (_state.gameStatus !== GAME_STATUSES.PAUSE) {
+        _state.gameStatus = GAME_STATUSES.PAUSE
+    } else _state.gameStatus = GAME_STATUSES.IN_PROGRESS
+    _notifySubscribers(EVENTS.STATUS_CHANGED)
+}
+
+export function isGamePaused() {
+    if (_state.gameStatus === GAME_STATUSES.PAUSE) {
+        return true;
+    } else {return false}
 }
 
 let googleJumpInterval;
@@ -133,26 +147,30 @@ export async function start() {
     _state.points.players = [0, 0];
 
     googleJumpInterval = setInterval(() => {
-        const oldPosition = { ..._state.positions.google }
-        _JumpGoogleToNewPosition();
-        _notifySubscribers(EVENTS.GOOGLE_JUMPED, {
-            oldPosition,
-            newPosition: { ..._state.positions.google }
-        })
-        _state.points.google++;
-        _notifySubscribers(EVENTS.SCORES_CHANGED)
+        if (_state.gameStatus !== GAME_STATUSES.PAUSE) {
+            const oldPosition = { ..._state.positions.google }
+            _JumpGoogleToNewPosition();
+            _notifySubscribers(EVENTS.GOOGLE_JUMPED, {
+                oldPosition,
+                newPosition: { ..._state.positions.google }
+            })
+            _state.points.google++;
+            console.log("pause&")
 
-        if (_state.points.google === _state.settings.pointsToLose) {
-            clearInterval(timerInterval);
-            clearInterval(googleJumpInterval);
-            _state.gameStatus = GAME_STATUSES.LOSE;
-            _notifySubscribers(EVENTS.STATUS_CHANGED)
-        }
+            _notifySubscribers(EVENTS.SCORES_CHANGED)
 
-        if ( _state.settings.sound === true ) {
-            const clickSound = new Audio('./ui/assets/sounds/miss.mp3');
-            clickSound.play();
+            if (_state.points.google === _state.settings.pointsToLose) {
+                clearInterval(timerInterval);
+                clearInterval(googleJumpInterval);
+                _state.gameStatus = GAME_STATUSES.LOSE;
+                _notifySubscribers(EVENTS.STATUS_CHANGED)
             }
+
+            if (_state.settings.sound === true) {
+                const clickSound = new Audio('./ui/assets/sounds/miss.mp3');
+                clickSound.play();
+            }
+        }
     }, _state.settings.googleJumpInterval),
         _state.gameStatus = GAME_STATUSES.IN_PROGRESS;
     _notifySubscribers(EVENTS.STATUS_CHANGED)
@@ -193,10 +211,10 @@ function _catchGoogle(playerNumber) {
     _notifySubscribers(EVENTS.SCORES_CHANGED)
     _notifySubscribers(EVENTS.GOOGLE_CAUGHT)
 
-    if ( _state.settings.sound === true ) {
+    if (_state.settings.sound === true) {
         const clickSound = new Audio('./ui/assets/sounds/catch.wav');
         clickSound.play();
-        }
+    }
 
     if (_state.points.players[playerIndex] === _state.settings.pointsToWin) {
         _state.gameStatus = GAME_STATUSES.WIN

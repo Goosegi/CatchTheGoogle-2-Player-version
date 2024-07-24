@@ -5,7 +5,7 @@ export function Notification(){
     const notificationText = document.createElement('span')
     notificationText.classList.add('notification')
 
-    notificationText.innerText = "Player 1 controls WASD, player 2 controls arrows"
+    notificationText.innerText = "Player 1 controls WASD, player 2 controls arrows. Use space for pause game"
     
 
     const notificationButton = document.createElement('button');

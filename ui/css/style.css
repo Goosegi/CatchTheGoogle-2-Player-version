@@ -76,6 +76,25 @@ select {
     background-color: #1fff2a65;
 }
 
+.pause {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: auto;
+    padding: 12px 36px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    align-items: center;
+    border: 1px solid #6da178;
+    background-color: rgba(106, 136, 91, 0.808);
+    margin: 36px auto;
+    max-width: 600px;
+    min-width: 376px;
+    column-gap: 20px;
+
+}
+
 /* Toggle //======================================================================================================================================================== */
 
 
@@ -133,7 +152,7 @@ select {
 /* Toggle //======================================================================================================================================================== */
 .switch-button {
     display: flex;
-    position : relative;
+    position: relative;
     font-size: inherit;
     padding-bottom: 24px;
     cursor: pointer;
@@ -141,33 +160,35 @@ select {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    flex-direction:column-reverse;
+    flex-direction: column-reverse;
     gap: 6px;
-  }
+}
 
-  .switch-button input {
+.switch-button input {
     position: relative;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
-  }
+}
 
-  .switch-button input:checked ~ .checkbox__checkmark {
+.switch-button input:checked~.checkbox__checkmark {
     background-color: #66DC42;
-  }
+}
 
-  .switch-button input:checked ~ .checkbox__checkmark:after {
+.switch-button input:checked~.checkbox__checkmark:after {
     left: 22px;
-  }
-  .switch-button:hover input ~ .checkbox__checkmark {
-    background-color: #eee;
-  }
-  .switch-button:hover input:checked ~ .checkbox__checkmark {
-    background-color: #66DC42;
-  }
+}
 
-  .switch-button .checkbox__checkmark {
+.switch-button:hover input~.checkbox__checkmark {
+    background-color: #eee;
+}
+
+.switch-button:hover input:checked~.checkbox__checkmark {
+    background-color: #66DC42;
+}
+
+.switch-button .checkbox__checkmark {
     position: relative;
     top: 1px;
     left: 0;
@@ -176,9 +197,9 @@ select {
     background-color: #eee;
     transition: background-color 0.25s ease;
     border-radius: 11px;
-  }
+}
 
-  .switch-button .checkbox__checkmark:after {
+.switch-button .checkbox__checkmark:after {
     content: "";
     position: relative;
     left: 3px;
@@ -189,8 +210,9 @@ select {
     background-color: #fff;
     border-radius: 50%;
     transition: left 0.25s ease;
-    
-  }
+
+}
+
 /* Result //======================================================================================================================================================== */
 
 .result-container {
@@ -227,7 +249,7 @@ select {
 .table {
     border-collapse: separate;
     border-spacing: 12px 6px;
-    table-layout:fixed;
+    table-layout: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -300,4 +322,3 @@ select {
     flex-direction: column;
     gap: 24px;
 }
-
